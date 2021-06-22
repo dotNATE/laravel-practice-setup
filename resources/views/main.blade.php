@@ -9,7 +9,7 @@
 </head>
 <body>
 
-    <a href="/"><h1>Nathaniel's Pain</h1></a>
+    <a href="/"><h1>Nate-er</h1></a>
 
     @if(session('isLoggedIn') === true)
         <h3>Welcome back {{ session('userName') }}</h3>
