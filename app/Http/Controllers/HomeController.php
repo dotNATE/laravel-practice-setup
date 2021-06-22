@@ -12,7 +12,7 @@ class HomeController extends Controller
     {
 
         $messages = Message::where('isDeleted', 0)
-                                ->orderBy('created_at')
+                                ->orderBy('created_at', 'desc')
                                 ->get();
 
         return view('home', [

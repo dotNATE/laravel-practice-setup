@@ -12,8 +12,8 @@ class MessageController extends Controller
     {
         $message = new Message();
 
-        $message->title =  $request->title;
         $message->body =  $request->body;
+        $message->postedBy =  $request->session()->get('userName');
 
         $message->save();
 

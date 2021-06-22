@@ -22,7 +22,7 @@
         <form action="/user/login" method="post">
             <input type="text" name="name" placeholder="Enter Username">
             <input type="password" name="password" placeholder="Enter Password">
-            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+            {{ csrf_field() }}
             <button type="submit">Submit</button>
         </form>
 
@@ -31,7 +31,7 @@
             <input type="text" name="name" placeholder="Enter Username">
             <input type="email" name="email" placeholder="Enter Email">
             <input type="password" name="password" placeholder="Enter Password">
-            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+            {{ csrf_field() }}
             <button type="submit">Submit</button>
         </form>
 
