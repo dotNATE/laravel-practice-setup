@@ -20,3 +20,5 @@ Route::get('/', [HomeController::class, 'index']);
 Route::post('/create', [MessageController::class, 'create']);
 
 Route::get('/message/{id}', [MessageController::class, 'view']);
+
+Route::get('/message/delete/{id}', [MessageController::class, 'delete']);

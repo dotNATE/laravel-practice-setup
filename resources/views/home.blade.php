@@ -29,6 +29,7 @@
                 {{ $message->created_at->diffForHumans() }}
                 <br>
                 <a href="/message/{{ $message->id }}">View</a>
+                <a href="/message/delete/{{ $message->id }}" method="delete">Delete</a>
             </li>
         @endforeach
 

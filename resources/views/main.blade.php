@@ -9,7 +9,7 @@
 </head>
 <body>
 
-    <h1>Nathaniel's Pain</h1>
+    <a href="/"><h1>Nathaniel's Pain</h1></a>
 
     @yield('content')
 

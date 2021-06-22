@@ -29,4 +29,12 @@ class MessageController extends Controller
         ]);
     }
 
+    public function delete($id)
+    {
+        $message = Message::findOrFail($id);
+
+        $message->delete();
+
+        return redirect('/');
+    }
 }
