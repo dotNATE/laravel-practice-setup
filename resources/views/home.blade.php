@@ -8,7 +8,7 @@
 
     <form action="/create" method="post">
         <input type="text" name="title" placeholder="Title">
-        <input type="text" name="content" placeholder="Content">
+        <input type="text" name="body" placeholder="Body">
         {{ csrf_field() }}
         <button type="submit">Submit</button>
     </form>
@@ -24,7 +24,7 @@
             <li>
                 <strong>{{ $message->title }}</strong>
                 <br>
-                {{ $message->content }}
+                {{ $message->body }}
                 <br>
                 {{ $message->created_at->diffForHumans() }}
                 <br>
