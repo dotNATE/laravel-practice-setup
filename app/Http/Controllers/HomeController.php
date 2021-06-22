@@ -11,7 +11,9 @@ class HomeController extends Controller
     public function index()
     {
 
-        $messages = Message::all();
+        $messages = Message::where('isDeleted', 0)
+                                ->orderBy('created_at')
+                                ->get();
 
         return view('home', [
             'messages' => $messages

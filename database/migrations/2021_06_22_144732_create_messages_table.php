@@ -17,6 +17,7 @@ class CreateMessagesTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('body');
+            $table->boolean('isDeleted');
             $table->timestamps();
         });
     }

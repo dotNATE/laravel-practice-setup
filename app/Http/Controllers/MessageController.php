@@ -33,7 +33,8 @@ class MessageController extends Controller
     {
         $message = Message::findOrFail($id);
 
-        $message->delete();
+        $message->isDeleted = 1;
+        $message->save();
 
         return redirect('/');
     }
