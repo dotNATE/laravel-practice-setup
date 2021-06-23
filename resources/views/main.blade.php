@@ -13,13 +13,13 @@
 
     @if(session('isLoggedIn') === true)
         <h3>Welcome back {{ session('userName') }}</h3>
-        <a href="user/logout/">Logout</a>
+        <a href="/user/logout/">Logout</a>
         <br><br>
         @yield('content')
     @else
 
         <h3>Sign in</h3>
-        <form action="/user/login" method="post">
+        <form action="/user/login/" method="post">
             <input type="text" name="name" placeholder="Enter Username">
             <input type="password" name="password" placeholder="Enter Password">
             {{ csrf_field() }}
@@ -27,7 +27,7 @@
         </form>
 
         <h3>...or sign <em>up</em></h3>
-        <form action="/user/create" method="post">
+        <form action="/user/create/" method="post">
             <input type="text" name="name" placeholder="Enter Username">
             <input type="email" name="email" placeholder="Enter Email">
             <input type="password" name="password" placeholder="Enter Password">

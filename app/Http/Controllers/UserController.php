@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Message;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -43,5 +44,19 @@ class UserController extends Controller
         return redirect('/');
     }
 
+    public function view($name)
+    {
+        $user = User::where('name', $name)
+            ->orderBy('created_at', 'desc')
+            ->firstOrFail();
 
+        $messages = Message::where('postedBy', $name)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('user', [
+            "user" => $user,
+            "messages" => $messages
+        ]);
+    }
 }
