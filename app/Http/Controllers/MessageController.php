@@ -13,7 +13,8 @@ class MessageController extends Controller
         $message = new Message();
 
         $message->body =  $request->body;
-        $message->postedBy =  $request->session()->get('userName');
+        $message->postedById = $request->session()->get('userId');
+        $message->postedBy = $request->session()->get('userName');
 
         $message->save();
 

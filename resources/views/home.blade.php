@@ -23,7 +23,7 @@
                 <br><br>
                 {{ $message->created_at->diffForHumans() }}
                  --
-                posted by: <strong><a href="/user/{{ $message->postedBy }}/">{{ $message->postedBy }}</a></strong>
+                posted by: <strong><a href="/user/{{ $message->postedById }}/">{{ $message->postedBy }}</a></strong>
                 <br>
                 <a href="/message/{{ $message->id }}">View</a>
                 <a href="/message/delete/{{ $message->id }}" method="delete">Delete</a>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FollowController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\UserController;
@@ -30,4 +31,8 @@ Route::post('/user/login', [UserController::class, 'login']);
 
 Route::get('/user/logout', [UserController::class, 'logout']);
 
-Route::get('/user/{name}', [UserController::class, 'view']);
+Route::get('/user/{id}', [UserController::class, 'view']);
+
+Route::get('/user/follow/{id}', [FollowController::class, 'follow']);
+
+Route::get('/user/unfollow/{id}', [FollowController::class, 'unfollow']);

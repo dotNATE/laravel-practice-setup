@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Follow;
 use App\Models\Message;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -44,19 +45,29 @@ class UserController extends Controller
         return redirect('/');
     }
 
-    public function view($name)
+    public function view($id)
     {
-        $user = User::where('name', $name)
-            ->orderBy('created_at', 'desc')
+        $user = User::where('id', $id)
             ->firstOrFail();
 
-        $messages = Message::where('postedBy', $name)
+        $messages = Message::where('postedById', $id)
             ->orderBy('created_at', 'desc')
             ->get();
 
+        $follows = Follow::where('followUserId', $id)
+            ->get();
+
+        $followers = [];
+
+        foreach($follows as $follow)
+        {
+            $followers[$follow->userId] = $follow->followUserId;
+        }
+
         return view('user', [
             "user" => $user,
-            "messages" => $messages
+            "messages" => $messages,
+            "followers" => $followers
         ]);
     }
 }

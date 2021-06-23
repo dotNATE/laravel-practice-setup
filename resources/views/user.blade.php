@@ -4,6 +4,14 @@
 
 @section('content')
 
+    <h3>{{ $user->name }} has {{ count($followers) }} followers!</h3>
+
+    @if(array_key_exists(session('userId'), $followers))
+        <a href="/user/unfollow/{{ $user->id }}"><button>Unfollow</button></a>
+    @else
+        <a href="/user/follow/{{ $user->id }}"><button>Follow</button></a>
+    @endif
+
     <h3>Messages posted by {{ $user->name }}</h3>
 
     <ul>
