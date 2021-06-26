@@ -4,33 +4,24 @@
 
 @section('content')
 
-    <h4>Post a message:</h4>
+    <h3 class="homeTitle">Welcome back {{ session('userName') }}</h3>
 
-    <form action="/create" method="post">
-        <input type="text" name="body" placeholder="Body">
+    <form class="newStitch" action="/create" method="post">
+        <input class="newStitchInput" type="text" name="body" placeholder="What's up?">
         {{ csrf_field() }}
-        <button type="submit">Submit</button>
+        <button class="newStitchButton" type="submit">Make a stitch</button>
     </form>
-    <br>
 
-    <h4>Recent Messages:</h4>
-
-    <ul>
-
+    <h4 class="recentTitle">Recent Messages:</h4>
+    <ul class="stitchWindow">
         @foreach($messages as $message)
-            <li>
-                {{ $message->body }}
-                <br><br>
-                {{ $message->created_at->diffForHumans() }}
-                 --
-                posted by: <strong><a href="/user/{{ $message->postedById }}/">{{ $message->postedBy }}</a></strong>
-                <br>
-                <a href="/message/{{ $message->id }}">View</a>
-                <a href="/message/delete/{{ $message->id }}" method="delete">Delete</a>
+            <li class="stitch">
+                <a class="stitchUsername" href="/user/{{ $message->postedById }}/">{{ $message->postedBy }}</a>
+                <a class="stitchContentText" href="/message/{{ $message->id }}">{{ $message->body }}</a>
+                <p class="stitchTimestamp">{{ $message->created_at->diffForHumans() }}</p>
+                <a class="stitchDelete" href="/message/delete/{{ $message->id }}">Delete</a>
             </li>
-            <br>
         @endforeach
-
     </ul>
 
 @endsection
