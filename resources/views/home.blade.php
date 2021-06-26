@@ -4,7 +4,7 @@
 
 @section('content')
 
-    Post a message:
+    <h4>Post a message:</h4>
 
     <form action="/create" method="post">
         <input type="text" name="body" placeholder="Body">
@@ -13,7 +13,7 @@
     </form>
     <br>
 
-    Recent Messages:
+    <h4>Recent Messages:</h4>
 
     <ul>
 

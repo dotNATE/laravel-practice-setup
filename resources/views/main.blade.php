@@ -13,7 +13,7 @@
 
     @if(session('isLoggedIn') === true)
         <h3>Welcome back {{ session('userName') }}</h3>
-        <a href="/user/logout/">Logout</a>
+        <a href="/user/{{ session('userId') }}">Profile</a> <a href="/user/logout/">Logout</a>
         <br><br>
         @yield('content')
     @else

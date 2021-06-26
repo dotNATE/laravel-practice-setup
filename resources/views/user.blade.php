@@ -4,15 +4,17 @@
 
 @section('content')
 
-    <h3>{{ $user->name }} has <a href="/user/{{ $user->id }}/followers">{{ count($followers) }} followers!</a></h3>
+    <h3>@if(session('userId') === $user->id)You have @else{{ $user->name }} has @endif<a href="/user/{{ $user->id }}/followers">{{ count($followers) }} followers!</a></h3>
 
+    @if(session('userId') !== $user->id)
     @if(array_key_exists(session('userId'), $followers))
         <a href="/user/unfollow/{{ $user->id }}"><button>Unfollow</button></a>
     @else
         <a href="/user/follow/{{ $user->id }}"><button>Follow</button></a>
     @endif
+    @endif
 
-    <h3>Messages posted by {{ $user->name }}</h3>
+    <h3>@if(session('userId') === $user->id)Your messages: @else Messages posted by {{ $user->name }}: @endif</h3>
 
     <ul>
 
