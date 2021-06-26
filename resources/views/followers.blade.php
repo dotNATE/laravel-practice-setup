@@ -6,10 +6,6 @@
 
     <h2>{{ $user->name }}'s followers</h2>
 
-{{--    <pre>--}}
-{{--        {{ print_r($followers) }}--}}
-{{--    </pre>--}}
-
     @foreach ($followers as $follower)
 
         <a href="/user/{{ $follower->id }}"><p>{{ $follower->name }}</p></a>
