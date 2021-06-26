@@ -73,20 +73,14 @@ class UserController extends Controller
 
     public function followers($id)
     {
-        $followerIds = [];
 
         $user = User::where('id', $id)
             ->firstOrFail();
 
-        $followers = Follow::where('followUserId', $id)
-            ->get();
-
-        foreach($followers as $follower)
-        {
-            $followerIds[] = $follower->userId;
-        }
-
-        $users = User::whereIn('id', $followerIds)
+        $users = Follow::select('users.id', 'follows.followUserId', 'follows.created_at', 'users.name', 'users.email')
+            ->join('users', 'follows.userId', '=', 'users.id')
+            ->where('followUserId', $id)
+            ->orderBy('created_at', 'desc')
             ->get();
 
         return view('followers', [
