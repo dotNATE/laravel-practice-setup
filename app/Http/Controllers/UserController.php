@@ -70,4 +70,28 @@ class UserController extends Controller
             "followers" => $followers
         ]);
     }
+
+    public function followers($id)
+    {
+        $followerIds = [];
+
+        $user = User::where('id', $id)
+            ->firstOrFail();
+
+        $followers = Follow::where('followUserId', $id)
+            ->get();
+
+        foreach($followers as $follower)
+        {
+            $followerIds[] = $follower->userId;
+        }
+
+        $users = User::whereIn('id', $followerIds)
+            ->get();
+
+        return view('followers', [
+            "user" => $user,
+            "followers" => $users
+        ]);
+    }
 }

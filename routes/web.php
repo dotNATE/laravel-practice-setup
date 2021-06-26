@@ -33,6 +33,8 @@ Route::get('/user/logout', [UserController::class, 'logout']);
 
 Route::get('/user/{id}', [UserController::class, 'view']);
 
+Route::get('/user/{id}/followers', [UserController::class, 'followers']);
+
 Route::get('/user/follow/{id}', [FollowController::class, 'follow']);
 
 Route::get('/user/unfollow/{id}', [FollowController::class, 'unfollow']);
