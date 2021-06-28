@@ -20,6 +20,10 @@ class UserController extends Controller
 
         $user->save();
 
+        $request->session()->put('isLoggedIn', true);
+        $request->session()->put('userName', $user->name);
+        $request->session()->put('userId', $user->id);
+
         return redirect('/');
     }
 

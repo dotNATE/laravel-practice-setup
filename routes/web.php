@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index']);
 
+Route::get('/signin', [HomeController::class, 'signIn']);
+
+Route::get('/register', [HomeController::class, 'register']);
+
 Route::post('/create', [MessageController::class, 'create']);
 
 Route::get('/message/{id}', [MessageController::class, 'view']);

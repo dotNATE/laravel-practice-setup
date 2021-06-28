@@ -1,1 +1,13 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
 
+body {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+}
+.stitch {
+  border: 1px solid black;
+}
