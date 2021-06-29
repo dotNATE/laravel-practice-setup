@@ -120,7 +120,7 @@ class UserController extends Controller
         $user = User::where('id', $id)
             ->firstOrFail();
 
-        $users = Follow::select('follows.followUserId', 'follows.created_at', 'users.name')
+        $followers = Follow::select('users.id', 'follows.followUserId', 'follows.created_at', 'users.name')
             ->join('users', 'follows.userId', '=', 'users.id')
             ->where('followUserId', $id)
             ->orderBy('created_at', 'desc')
@@ -128,7 +128,7 @@ class UserController extends Controller
 
         return view('followers', [
             "user" => $user,
-            "followers" => $users
+            "followers" => $followers
         ]);
     }
 
@@ -138,15 +138,15 @@ class UserController extends Controller
         $user = User::where('id', $id)
             ->firstOrFail();
 
-        $users = Follow::select('follows.followUserId', 'follows.created_at', 'users.name')
+        $following = Follow::select('follows.followUserId', 'follows.created_at', 'users.name')
             ->join('users', 'follows.followUserId', '=', 'users.id')
             ->where('userId', $id)
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return view('followers', [
+        return view('following', [
             "user" => $user,
-            "followers" => $users
+            "following" => $following
         ]);
     }
 }
