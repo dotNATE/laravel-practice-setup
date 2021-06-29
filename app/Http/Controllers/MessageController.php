@@ -23,10 +23,11 @@ class MessageController extends Controller
 
     public function view($id)
     {
-        $message = Message::findOrFail($id);
+        $messages = Message::where('id', $id)
+            ->get();
 
-        return view('message', [
-            'message' => $message
+        return view('userMessages', [
+            'messages' => $messages
         ]);
     }
 

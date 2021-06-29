@@ -1,10 +1,5 @@
-@extends('main')
-
-@section('title', $message->title)
-
-@section('content')
-
-<p>{{ $message->body }}</p>
-<p><strong>{{ $message->created_at->diffForHumans() }}</strong> posted by: <strong><a href="/user/{{ $message->postedBy }}/">{{ $message->postedBy }}</a></strong></p>
-
-@endsection
+<li class="stitch">
+    <a class="stitchUsername" href="/user/{{ $message->postedById }}">{{ $message->postedBy }}</a>
+    <a class="stitchContentText" href="/message/{{ $message->id }}">{{ $message->body }}</a>
+    <p class="stitchTimestamp">{{ $message->created_at->diffForHumans() }}</p>
+</li>
