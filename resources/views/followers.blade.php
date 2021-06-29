@@ -4,14 +4,20 @@
 
 @section('content')
 
-    <h2>{{ $user->name }}'s followers</h2>
+    <section>
 
-    @foreach ($followers as $follower)
+        @if(Route::is('followers'))
+            <h2>{{ $user->name }}'s followers</h2>
+        @elseif(Route::is('following'))
+            <h2>You are following, the following:</h2>
+        @endif
 
-        <a href="/user/{{ $follower->id }}"><p>{{ $follower->name }}</p></a>
-        <p>Started following {{ $follower->created_at->diffForHumans() }}</p>
-        <br>
+        @foreach ($followers as $follower)
+            <a href="/user/{{ $follower->id }}"><p>{{ $follower->name }}</p></a>
+            <p>Started following {{ $follower->created_at->diffForHumans() }}</p>
+            <br>
+        @endforeach
 
-    @endforeach
+    </section>
 
 @endsection

@@ -79,6 +79,10 @@ class UserController extends Controller
 
     public function view($id)
     {
+
+        $followers = [];
+        $following = [];
+
         $user = User::where('id', $id)
             ->firstOrFail();
 
@@ -86,20 +90,27 @@ class UserController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        $follows = Follow::where('followUserId', $id)
+        $followerIds = Follow::where('followUserId', $id)
             ->get();
 
-        $followers = [];
+        $followingIds = Follow::where('userId', $id)
+            ->get();
 
-        foreach($follows as $follow)
+        foreach($followerIds as $followerId)
         {
-            $followers[$follow->userId] = $follow->followUserId;
+            $followers[$followerId->userId] = $followerId->followUserId;
+        }
+
+        foreach($followingIds as $followingId)
+        {
+            $following[$followingId->followUserId] = $followingId->followUserId;
         }
 
         return view('user', [
             "user" => $user,
             "messages" => $messages,
-            "followers" => $followers
+            "followers" => $followers,
+            "following" => $following
         ]);
     }
 
@@ -109,9 +120,27 @@ class UserController extends Controller
         $user = User::where('id', $id)
             ->firstOrFail();
 
-        $users = Follow::select('users.id', 'follows.followUserId', 'follows.created_at', 'users.name', 'users.email')
+        $users = Follow::select('follows.followUserId', 'follows.created_at', 'users.name')
             ->join('users', 'follows.userId', '=', 'users.id')
             ->where('followUserId', $id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('followers', [
+            "user" => $user,
+            "followers" => $users
+        ]);
+    }
+
+    public function following($id)
+    {
+
+        $user = User::where('id', $id)
+            ->firstOrFail();
+
+        $users = Follow::select('follows.followUserId', 'follows.created_at', 'users.name')
+            ->join('users', 'follows.followUserId', '=', 'users.id')
+            ->where('userId', $id)
             ->orderBy('created_at', 'desc')
             ->get();
 

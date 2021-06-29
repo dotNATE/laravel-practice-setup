@@ -26,7 +26,9 @@ Route::get('/user/logout', [UserController::class, 'logout']);
 
 Route::get('/user/{id}', [UserController::class, 'view']);
 
-Route::get('/user/{id}/followers', [UserController::class, 'followers']);
+Route::get('/user/{id}/followers', [UserController::class, 'followers'])->name('followers');
+
+Route::get('/user/{id}/following', [UserController::class, 'following'])->name('following');
 
 Route::get('/user/follow/{id}', [FollowController::class, 'follow']);
 
