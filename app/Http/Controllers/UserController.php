@@ -12,17 +12,43 @@ class UserController extends Controller
 {
     public function create(Request $request)
     {
+        $message = null;
+        $errors = [];
+        $fields = ['name', 'email' , 'password'];
+        $values = [];
+
+        foreach ($fields as $field) {
+            if (empty($request->$field)) {
+                $errors[] = $field;
+            } else {
+                $values[$field] = $request->$field;
+            }
+        }
+
+        if ($request->password !== $request->passwordConf) {
+            $message = 'Your passwords do not match';
+        }
+
+        if (count($errors) > 0 || $message !== null) {
+            return view('/register', [
+                "message" => $message,
+                "errors" => $errors
+            ]);
+        }
+
         $user = new User();
 
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = $request->password;
+        $user->name = $values['name'];
+        $user->email = $values['email'];
+        $user->password = $values['password'];
 
         $user->save();
 
         $request->session()->put('isLoggedIn', true);
         $request->session()->put('userName', $user->name);
         $request->session()->put('userId', $user->id);
+
+        mail($user->email, 'Knitter Signup Confirmation', '');
 
         return redirect('/');
     }
