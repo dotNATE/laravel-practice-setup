@@ -6,7 +6,6 @@ use App\Models\Follow;
 use App\Models\Message;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
@@ -40,7 +39,7 @@ class UserController extends Controller
 
         $user->name = $values['name'];
         $user->email = $values['email'];
-        $user->password = $values['password'];
+        $user->password = password_hash($values['password'], PASSWORD_BCRYPT);
 
         $user->save();
 
@@ -48,7 +47,7 @@ class UserController extends Controller
         $request->session()->put('userName', $user->name);
         $request->session()->put('userId', $user->id);
 
-        mail($user->email, 'Knitter Signup Confirmation', '');
+        mail($user->email, 'Knitter Signup Confirmation', 'Thank you, ' . $user->name . ' for signing up to Knitter!');
 
         return redirect('/');
     }
@@ -57,13 +56,16 @@ class UserController extends Controller
     {
         $user = User::where('name', '=', $request->name)->firstOrFail();
 
-        if ($user->password === $request->password) {
+        if (password_verify($request->password, $user->password)) {
             $request->session()->put('isLoggedIn', true);
             $request->session()->put('userName', $user->name);
             $request->session()->put('userId', $user->id);
+            return redirect('/');
         }
 
-        return redirect('/');
+        return view('/signIn', [
+            "message" => 'Provided password is incorrect'
+        ]);
     }
 
     public function logout(Request $request)

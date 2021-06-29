@@ -13,6 +13,12 @@
             <button class="signInButton" type="submit">Submit</button>
         </form>
         <a href="/register/">or sign up to start knitting today!</a>
+        @if(!empty($message))
+
+            <p>{{ $message }}</p>
+
+        @endif
+
     </div>
 
 @endsection
